@@ -32,9 +32,6 @@ class News extends LinkableModel {
 	///////////////////////////////////////////////
 	//               Menu Linkable               //
 	///////////////////////////////////////////////
-	// Menu link related methods - all menu-linkable models must have these
-	// NOTE: Always pull models with their languages initially if you plan on using these!
-	// Otherwise, you're going to be performing repeated queries.  Naughty.
 	public function link()
 	{
 		$language_segment = (Config::get('core::languages')) ? $this->language->uri . '/' : '';
@@ -44,6 +41,17 @@ class News extends LinkableModel {
 	public function link_edit()
 	{
 		return admin_url('news/edit/' . $this->id);
+	}
+	public function search($terms)
+	{
+		return static::where(function($query) use ($terms) {
+			foreach ($terms as $term) {
+				$query->orWhere('name',             'like', $term);
+				$query->orWhere('plaintext',        'like', $term);
+				$query->orWhere('meta_description', 'like', $term);
+				$query->orWhere('meta_keywords',    'like', $term);
+			}
+		})->get();
 	}
                                    
 	///////////////////////////////////////////////
