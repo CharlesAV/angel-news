@@ -77,7 +77,7 @@ class NewsController extends \Angel\Core\AngelController {
 		
 		// Query
 		$objects = $this->News
-			->where('date','>',$start)
+			->where('date','>=',$start)
 			->where('date','<',$end)
 			->orderBy('date','desc');
 			
