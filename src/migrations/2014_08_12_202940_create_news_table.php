@@ -41,7 +41,7 @@ class CreateNewsTable extends Migration {
 			}
 		});
 
-		if (ToolBelt::mysql_greater('5.6.4)) {
+		if (ToolBelt::mysql_greater('5.6.4')) {
 			DB::statement('ALTER TABLE `news` ADD FULLTEXT search(`name`, `plaintext`, `meta_description`, `meta_keywords`)');
 		}
 	}
