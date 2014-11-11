@@ -65,7 +65,8 @@
 				@else 
 					<tr>
 						<td colspan="4" align="center">
-							No News Articles Found.
+							<br />
+							No News Articles Found.<br /><br />
 						</td>
 					</tr>
 				@endif
