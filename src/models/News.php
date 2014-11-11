@@ -1,10 +1,69 @@
 <?php namespace Angel\News;
 
 use Angel\Core\LinkableModel;
-use App, Config;
+use App, Config, Input;
 
 class News extends LinkableModel {
 
+	public static function columns()
+	{
+		$columns = array(
+			'date',
+			'name',
+			'slug',
+			'html',
+			'title',
+			'meta_description',
+			'meta_keywords',
+			'og_type',
+			'og_image',
+			'twitter_card',
+			'twitter_image',
+			'published',
+			'published_range',
+			'published_start',
+			'published_end'
+		);
+		if (Config::get('core::languages')) $columns[] = 'language_id';
+		return $columns;
+	}
+	public function validate_rules()
+	{
+		return array(
+			'date' => 'required',
+			'name' => 'required',
+			'slug' => 'required|alpha_dash|unique:news,slug,' . $this->id
+		);
+	}
+	public function validate_custom()
+	{
+		$errors = array();
+		
+		$published_start = Input::get('published_start');
+		$published_end   = Input::get('published_end');
+		if (Input::get('published_range') && $published_end && strtotime($published_start) >= strtotime($published_end)) {
+			$errors[] = 'The publication end time must come after the start time.';
+		}
+
+		return $errors;
+	}
+
+	///////////////////////////////////////////////
+	//                  Events                   //
+	///////////////////////////////////////////////
+	public static function boot()
+	{
+		parent::boot();
+
+		static::saving(function($article) {
+			$article->plaintext = strip_tags($article->html);
+			if (!$article->published_range) {
+				$article->published_start = $article->published_end = null;
+			}
+			$article->title = $article->title ? $article->title : $article->name;
+		});
+	}
+	
 	///////////////////////////////////////////////
 	//               Relationships               //
 	///////////////////////////////////////////////
