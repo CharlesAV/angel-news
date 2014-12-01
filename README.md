@@ -18,10 +18,9 @@ Add the following service provider to your `providers` array in `app/config/app.
 'Angel\News\NewsServiceProvider'
 ```
 
-Issue the following commands:
+Issue the following command:
 ```bash
 php artisan migrate --package="angel/news"  # Run the migrations
-php artisan config:publish angel/news       # Publish the config
 ```
 
 Open up your `app/config/packages/angel/core/config.php` and add the products and orders routes to the `menu` array:
