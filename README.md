@@ -23,13 +23,13 @@ Issue the following command:
 php artisan migrate --package="angel/news"  # Run the migrations
 ```
 
-Open up your `app/config/packages/angel/core/config.php` and add the products and orders routes to the `menu` array:
+Open up your `app/config/packages/angel/core/config.php` and add the news routes to the `menu` array:
 ```php
 'menu' => array(
-	'Pages'     => 'pages',
-	'Menus'     => 'menus',
-	'News'  => 'news',  // <--- Add this line
-	'Users'     => 'users',
-	'Settings'  => 'settings'
+	'Pages' => 'pages',
+	'Menus' => 'menus',
+	'News' => 'news',  // <--- Add this line
+	'Users' => 'users',
+	'Settings' => 'settings'
 ),
 ```
