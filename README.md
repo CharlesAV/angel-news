@@ -1,6 +1,6 @@
 Angel News
 ==============
-This is an eCommerce module for the [Angel CMS](https://github.com/CharlesAV/angel).
+This is a news articles module for the [Angel CMS](https://github.com/CharlesAV/angel).
 
 Installation
 ------------
